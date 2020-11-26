@@ -1,0 +1,88 @@
+From d09847f9fee26bab2a6bce72003c88b94023a8d8 Mon Sep 17 00:00:00 2001
+From: Sreehari S <sreeharisangeeth@gmail.com>
+Date: Sat, 30 May 2020 23:53:47 +0530
+Subject: [PATCH] Create Patch File
+
+---
+ __pycache__/client3.cpython-37.pyc | Bin 0 -> 1116 bytes
+ client_test.py                     |  26 +++++++++++++++++++++-----
+ 2 files changed, 21 insertions(+), 5 deletions(-)
+ create mode 100644 __pycache__/client3.cpython-37.pyc
+
+diff --git a/__pycache__/client3.cpython-37.pyc b/__pycache__/client3.cpython-37.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..e8809a7e839d662b1327c8843462af8b28735edf
+GIT binary patch
+literal 1116
+zcmYjQ&2Aev5GHrItCcOeiQ}ILxv&L-L_i(8$f1Usq-pH5K!6xdj35Z1cCi*m*2b${
+znWPF^l~3-W&(M>6>_hYgdg!4?UVF;Dr=B{b?4Ts(j~vd<d^7v3*<2vFzWnvCAAYYB
+z^0zat7uw`0lKvB!B$5_HP%i@!co~Y&OD32ML?lBIOD3bAiKxj~)=(x;m&tLU{y6;w
+z79hT$yX5<+ScGua0Q$Z;TY_lz39uQvB$xD(&Tcp<ZstTRpKilV^xhJ;pa!=tXqSl<
+zu`1TYI;_JotUMxcTh?I(R$&d+`)rL|P)bft-@5Y!NMKnmwg~b@i(CX(w=dpe9S5Y{
+z{D3u)y~(EoV@93L&7$gM#h}urv%R&wwRtiIb@p{GAOCco|3eAsA^8;{XGl9p`YEz0
+z#%qytYMd6dhz#*-^gQr3`)G&LU>dFy8Qmf0Y)YLqWqpR3#FGx+SCt(1fM-R)t3Eda
+z;3a?r$$!j>F=%coegq|`%%BsOnaM^~UK(yAZK~d}t(j_+9_G?UBbE1HZfE-VLx3r^
+zsg3$Ym6>*AqmyxEK)GXE#|P=$zmC3hRk`YZBWe-FzhCWix^FZn-91nMgG}Y!7yIeU
+zN*!e-YA<&-4D<#Y248P{u`xP(*zFZLl;+`s(V1-=f!W1O_kE@qPWw>{6M6%8gQ_N;
+z^;{-yIqAp)yMoG;N{WNikih{$JEeCBf)!3a<KKbd2t-~vsC@cq#<Nmh>4#joX6^Y3
+z+JUHDxm+uU{$kD==x7tn^R<iDMoY)Y2umoVYRTWG=`hR7G@aag<)D-NuI8EH_Yu6#
+zUHv)7+P(CjL9IPWd^Gg4;Wy8AY`FXU+jdJVja5<PhYu9saA_mrxow%rhalK{U6mqM
+zSVuJ!(W^JlU%#_-&tvp4kun=Xn%W4xj=)mXu&Yvw+I7qt#;itA+PGh-VP-5-kVzZ+
+zrfVDf9JNZYFh2sy{o=~C#kbv0Pig)KkedQEN9oZJXS9GPt9Yb2vV{5_vXBKy9e21y
+OdC2Gjb~mB7gZ}_I8XNuq
+
+literal 0
+HcmV?d00001
+
+diff --git a/client_test.py b/client_test.py
+index af2bf26..f629f0c 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -1,5 +1,5 @@
+ import unittest
+-from client3 import getDataPoint
++from client3 import getDataPoint,getRatio
+ 
+ class ClientTest(unittest.TestCase):
+   def test_getDataPoint_calculatePrice(self):
+@@ -7,17 +7,33 @@ class ClientTest(unittest.TestCase):
+       {'top_ask': {'price': 121.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
+       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+     ]
+-    """ ------------ Add the assertion below ------------ """
+-
++    """ ------------ Assertion Added ------------ """
++    for quote in quotes:
++          self.assertEqual(getDataPoint(quote),(quote['stock'],quote['top_bid']['price'],quote['top_ask']['price'],(quote['top_bid']['price']+quote['top_ask']['price'])/2))
+   def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
+     quotes = [
+       {'top_ask': {'price': 119.2, 'size': 36}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 120.48, 'size': 109}, 'id': '0.109974697771', 'stock': 'ABC'},
+       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+     ]
+-    """ ------------ Add the assertion below ------------ """
++    """ ------------ Assertion Added ------------ """
++    for quote in quotes:
++          self.assertEqual(getDataPoint(quote),(quote['stock'],quote['top_bid']['price'],quote['top_ask']['price'],(quote['top_bid']['price']+quote['top_ask']['price'])/2))
++
++
++  """ ------------ Unit tests Added ------------ """
+ 
++  def test_getRatio_findRatio(self):
++    prices=[[119.2,120.1],[122.4,115.7]]
++    for price_A,price_B in prices:
++          self.assertEqual(getRatio(price_A,price_B),price_A/price_B)
+ 
+-  """ ------------ Add more unit tests ------------ """
++  def test_getRatio_findRatiodivisionByZero(self):
++        self.assertEqual(getRatio(120,0),None)
++          
++          
++        
++        
++        
+ 
+ 
+ 
+-- 
+2.26.2.windows.1
+
